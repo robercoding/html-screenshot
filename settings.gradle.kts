@@ -13,7 +13,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "html-screenshot"
-include(":library")
+rootProject.name = "html-screenshot-kmm"
+include(":html-screenshot")
 include(":shared")
 include(":app")

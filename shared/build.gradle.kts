@@ -60,13 +60,12 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(project(":library"))
+                api(project(":html-screenshot"))
                 implementation(libs.kotlin.stdlib)
 
                 implementation(compose.components.resources)
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.kotlinx.serialization.json)
-                // implementation(libs.serialization)
 
                 implementation(libs.material)
                 implementation(libs.material.icons.extended)
@@ -102,12 +101,6 @@ kotlin {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.ktor.client.darwin)
-                // Add iOS-specific dependencies here. This a source set created by Kotlin Gradle
-                // Plugin (KGP) that each specific iOS target (e.g., iosX64) depends on as
-                // part of KMP’s default source set hierarchy. Note that this source set depends
-                // on common by default and will correctly pull the iOS artifacts of any
-                // KMP dependencies declared in commonMain.
-                // implementation("io.ktor:ktor-client-darwin:3.0.0-alpha06")
             }
         }
     }

@@ -91,9 +91,9 @@ class Html2BitmapWebView(
     private val measurementMutex = Mutex()
     private var measuring = false
     private fun executeMeasurementAfterLoading() {
-        Log.d(TAG, "Execute measurement after loading")
+        // Log.d(TAG, "Execute measurement after loading")
         CoroutineScope(Dispatchers.Main).launch {
-            Log.d(TAG, "Is done? ${content.isDone()}, isMeasurementlocked? ${measurementMutex.isLocked}")
+            // Log.d(TAG, "Is done? ${content.isDone()}, isMeasurementlocked? ${measurementMutex.isLocked}")
             measurementMutex.withLock {
                 if(measuring){
                     return@launch
@@ -123,11 +123,11 @@ class Html2BitmapWebView(
 
     private suspend fun waitForVisualStateCallback(): Unit =
         suspendCancellableCoroutine { continuation ->
-            Log.d(TAG, "Wait for visual state callback")
+            // Log.d(TAG, "Wait for visual state callback")
             if (WebViewFeature.isFeatureSupported(WebViewFeature.VISUAL_STATE_CALLBACK)) {
                 val requestId = System.currentTimeMillis() // Unique ID for the callback
                 WebViewCompat.postVisualStateCallback(webView, requestId) { reqId ->
-                    Log.d(TAG, "got reqid: $reqId")
+                    // Log.d(TAG, "got reqid: $reqId")
                     if (reqId == requestId) {
                         continuation.resume(Unit)
                     }
@@ -142,9 +142,9 @@ class Html2BitmapWebView(
     private val screenshotMutex = Mutex()
     private var tookScreenshot = false
     private suspend fun executeScreenshot() {
-        Log.d(TAG, "Execute screenshot, is done? ${content.isDone()}")
+        // Log.d(TAG, "Execute screenshot, is done? ${content.isDone()}")
         if (!content.isDone()) return
-            Log.d(TAG, "Measured Height: ${webView.measuredHeight}")
+            // Log.d(TAG, "Measured Height: ${webView.measuredHeight}")
         if (webView.measuredHeight == 0) {
             return
         }
@@ -154,7 +154,7 @@ class Html2BitmapWebView(
                 return@withLock
             }
             try {
-                Log.d(TAG, "Taking screenshot")
+                // Log.d(TAG, "Taking screenshot")
                 val screenshot = takeScreenshot(webView)
                 tookScreenshot = true
                 // cleanup()
@@ -169,27 +169,23 @@ class Html2BitmapWebView(
         return try {
             createBitmap(webView.measuredWidth, webView.measuredHeight, Bitmap.Config.RGB_565).apply {
                 val canvas = Canvas(this)
-                // Optional: You might want to translate the canvas if the webview is scrolled,
-                // although webView.draw() usually handles drawing the full content regardless
-                // of scroll position when drawing to a sufficiently large canvas.
-                // canvas.translate(-webView.scrollX.toFloat(), -webView.scrollY.toFloat())
                 webView.draw(canvas)
             }
         } catch (e: OutOfMemoryError) {
-            Log.e("ScreenshotError", "OutOfMemoryError creating bitmap: ${e.message}")
+            // Log.e("ScreenshotError", "OutOfMemoryError creating bitmap: ${e.message}")
             // Handle OOM: maybe try a smaller bitmap config, or skip screenshot
             throw e
         } catch (e: Exception) {
-            Log.e("ScreenshotError", "Error taking screenshot: ${e.message}")
+            // Log.e("ScreenshotError", "Error taking screenshot: ${e.message}")
             throw e
         }
     }
 
     override fun progressChanged() {
-        Log.d(
-            TAG,
-            "Progress changed: $internalProgress ${content.isDone()}"
-        )
+        // Log.d(
+        //     TAG,
+        //     "Progress changed: $internalProgress ${content.isDone()}"
+        // )
         if (internalProgress == 100 && content.isDone()) {
             executeMeasurementAfterLoading()
             // pageFinished()

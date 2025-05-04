@@ -41,7 +41,7 @@ class Html2Bitmap constructor(
                 }
 
                 override fun error(throwable: Throwable) {
-                    Log.d("Html2Bitmap", "Error: ${throwable.message}")
+                    // Log.d("Html2Bitmap", "Error: ${throwable.message}")
                     continuation.resumeWithException(throwable)
                 }
             })

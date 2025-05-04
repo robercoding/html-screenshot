@@ -22,7 +22,7 @@ actual class HtmlToImageConverter(private val screenshotThatHtmlConfiguration: S
             html2bitmap.setContent(WebViewContent.html(html))
             val bitmap = html2bitmap.getBitmap()
 
-            Log.d("HtmlToImageConverter", "Bitmap: $bitmap")
+            // Log.d("HtmlToImageConverter", "Bitmap: $bitmap")
 
             val byteArray = ByteArrayOutputStream().use { stream ->
                 when (screenshotThatHtmlConfiguration.imageFormat) {
