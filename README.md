@@ -1,6 +1,6 @@
 # HTML Screenshot
 
-A Kotlin Multiplatform Mobile (KMM) library for converting HTML markup into a `ByteArray`, suitable for generating receipts, tickets, invoices, and similar documents without scanning.
+A Kotlin Multiplatform Mobile (KMM) library for converting HTML markup into a `ByteArray`.
 
 ---
 

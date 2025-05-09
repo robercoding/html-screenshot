@@ -95,8 +95,8 @@ publishing {
             name = "GitHubPackages"
             url  = uri("https://maven.pkg.github.com/robercoding/html-screenshot-kmm")
             // gradle property htmlScreenshot.githubActor
-            val githubActor = System.getenv("GITHUB_ACTOR") ?: project.findProperty("htmlScreenshot.githubActor") as String
-            val githubToken = System.getenv("GITHUB_TOKEN") ?: project.findProperty("htmlScreenshot.githubToken") as String
+            val githubActor = System.getenv("GITHUB_ACTOR") ?: project.findProperty("htmlScreenshotGithubActor") as String
+            val githubToken = System.getenv("GITHUB_TOKEN") ?: project.findProperty("htmlScreenshotGithubToken") as String
             credentials {
                 username = githubActor
                 password = githubToken
