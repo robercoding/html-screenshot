@@ -108,11 +108,9 @@ fun App() {
                                     byteArray = result.data
                                 }
                                 is Html2ScreenshotResult.Error -> {
-                                    // println("Error: ${result.exception.message}")
+                                    println("Error: ${result.exception.message}")
                                 }
                             }
-                            // byteArray = converter.urlToByteArray("https://www.google.com/")
-                            // byteArray = converter.urlToByteArray("https://consum.es/")
                         }
                     }
                 ) {
