@@ -17,7 +17,7 @@ import platform.UIKit.UIImageJPEGRepresentation
 import platform.UIKit.UIImagePNGRepresentation
 import platform.posix.memcpy
 
-actual class HtmlToImageConverter(private val screenshotThatHtmlConfiguration: ScreenshotThatHtmlConfiguration) {
+actual class HtmlToImageConverter actual constructor(private val screenshotThatHtmlConfiguration: ScreenshotThatHtmlConfiguration) {
     actual suspend fun convert(
         html: String,
     ): Html2ScreenshotResult {

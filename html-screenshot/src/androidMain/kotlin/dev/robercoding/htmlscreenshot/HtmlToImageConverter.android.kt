@@ -8,7 +8,7 @@ import dev.robercoding.htmlscreenshot.helpers.Html2Bitmap
 import dev.robercoding.htmlscreenshot.webview.content.WebViewContent
 import java.io.ByteArrayOutputStream
 
-actual class HtmlToImageConverter(private val screenshotThatHtmlConfiguration: ScreenshotThatHtmlConfiguration) {
+actual class HtmlToImageConverter actual constructor(private val screenshotThatHtmlConfiguration: ScreenshotThatHtmlConfiguration) {
 
     val html2bitmap = Html2Bitmap(
         context = applicationContext,
