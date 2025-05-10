@@ -33,13 +33,6 @@ kotlin {
                 api(libs.kotlinx.coroutines.core)
             }
         }
-
-        // val iosMain by creating {
-        //     dependsOn(commonMain)
-        // }
-        // val iosSimulatorArm64Main by getting {
-        //     dependsOn(iosMain)
-        // }
         val commonTest by getting {
             dependencies {
                 implementation(libs.kotlin.test)
@@ -64,44 +57,11 @@ dependencies {
 }
 
 
-publishing {
-    publications.withType<MavenPublication>().configureEach {
-        groupId = project.group.toString()
+mavenPublishing {
+    // Publish to the new Central Portal
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 
-        artifactId = when (this.name) {
-            "kotlinMultiplatform" -> project.name
-            else -> {
-                // source: https://github.com/orgs/community/discussions/26328#discussioncomment-3251482
-                // artifactId should be lowercase to be able to push to github packages
-                // This is a workaround to publish on GitHub Packages with lowercase artifactId
-                // strip "Publication", insert dashes between camel-case transitions, lowercase
-                // e.g: iosArm64Publication -> ios-arm64
-                // e.g: iosX64Publication -> ios-x64
-                // e.g: iosSimulatorArm64Publication -> ios-simulator-arm64
-                val suffix = name
-                    .removeSuffix("Publication")
-                    .replace(Regex("([a-z])([A-Z])"), "$1-$2")
-                    .lowercase()
-                "${project.name}-$suffix"
-            }
-        }
-
-        version = project.version.toString()
-    }
-
-    // Publish
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url  = uri("https://maven.pkg.github.com/robercoding/html-screenshot-kmm")
-            // gradle property htmlScreenshot.githubActor
-            val githubActor = System.getenv("GITHUB_ACTOR") ?: project.findProperty("htmlScreenshotGithubActor") as String
-            val githubToken = System.getenv("GITHUB_TOKEN") ?: project.findProperty("htmlScreenshotGithubToken") as String
-            credentials {
-                username = githubActor
-                password = githubToken
-            }
-        }
-    }
+    // Enable GPG signing of every publication
+    signAllPublications()
 }
 
